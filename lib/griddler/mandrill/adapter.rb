@@ -62,7 +62,10 @@ module Griddler
 
       def attachment_files(event)
         attachments = event[:attachments] || Array.new
-        attachments.map do |key, attachment|
+        images = event[:images] || Hash.new
+        images.each_value{ |image| image[:base64] = true }
+        all_attachments = attachments.merge(images)
+        all_attachments.map do |key, attachment|
           ActionDispatch::Http::UploadedFile.new({
             filename: attachment[:name],
             type: attachment[:type],
