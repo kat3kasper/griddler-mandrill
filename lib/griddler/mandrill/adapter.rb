@@ -61,7 +61,7 @@ module Griddler
       end
 
       def attachment_files(event)
-        attachments = event[:attachments] || Array.new
+        attachments = event[:attachments] || Hash.new
         images = event[:images] || Hash.new
         images.each_value{ |image| image[:base64] = true }
         all_attachments = attachments.merge(images)
